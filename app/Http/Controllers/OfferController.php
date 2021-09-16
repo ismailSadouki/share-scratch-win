@@ -212,7 +212,6 @@ class OfferController extends Controller
                     break;
             }
         } else {
-            dd($reference_code);
             if($reference_code != null) {
                 // تحديث حالة الشخص الداعي
                 $promoter = Participant::where('reference_code', $reference_code)->first();
@@ -220,6 +219,7 @@ class OfferController extends Controller
                     $promoter->status = 1;
                     $promoter->update();
                 }
+            dd($promoter);
             }
 
             // انشاء كوكيز
