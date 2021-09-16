@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/myOffers', [App\Http\Controllers\OfferController::class, 'myOffers'])->name('myoffers');
+// Route::get('/myOffers', [App\Http\Controllers\OfferController::class, 'myOffers'])->name('myoffers');
 Route::get('/offer/create', [App\Http\Controllers\OfferController::class, 'create'])->name('offer.create')->middleware('auth');
 Route::post('/offer/store', [App\Http\Controllers\OfferController::class, 'store'])->name('offer.store')->middleware('auth');
 Route::get('/offer/show/{slug}', [App\Http\Controllers\OfferController::class, 'show']);
