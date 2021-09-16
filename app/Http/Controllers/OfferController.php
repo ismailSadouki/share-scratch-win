@@ -149,7 +149,8 @@ class OfferController extends Controller
     public function show($slug, $reference_code = null)
     {
         $offer = Offer::where('slug', $slug)->first();
-     
+    //  اسم الكوكيز
+        $cookie_name = 'ip_address'.$offer->id;
 
         // حساب و التحقق من عدد الجوائز المتبقية
         $remaining_offers = $offer->valueOffers()->sum('will_get');
@@ -170,17 +171,17 @@ class OfferController extends Controller
 
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
-        if($verification_ip == $ip || Cookie::has('ip_address')){
+        if($verification_ip == $ip || Cookie::has($cookie_name)){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             if(!isset($participant)){
                 $participant = Participant::where([
-                    'ip' => Cookie::get('ip_address'),
+                    'ip' => Cookie::get($cookie_name),
                     'offer_id' => $offer->id,
                 ])->first();
             }
             // // في حال الايبي موجود لكن الكوكيز غير موجود
-            if (!Cookie::has('ip_address')) {
-                Cookie::queue(Cookie::make('ip_address', $ip));
+            if (!Cookie::has($cookie_name)) {
+                Cookie::queue(Cookie::make($cookie_name, $ip));
             }
 
             // احضار معلومات المشارك
@@ -224,7 +225,7 @@ class OfferController extends Controller
             }
 
             // انشاء كوكيز
-            Cookie::queue(Cookie::make('ip_address', $ip));
+            Cookie::queue(Cookie::make($cookie_name, $ip));
             // create unique reference_code
             do 
             {
