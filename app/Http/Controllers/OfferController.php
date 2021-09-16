@@ -184,7 +184,7 @@ class OfferController extends Controller
             if (!Cookie::has($of_offferId_fer)) {
                 Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
             }
-            dd($participant, 'success')''
+            dd($participant, 'success');
 
             // احضار معلومات المشارك
             switch ($participant->status) {
