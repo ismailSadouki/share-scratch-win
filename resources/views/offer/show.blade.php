@@ -190,7 +190,7 @@
     {{-- Confetti Effect --}}
     <script type="text/javascript" src="{{asset('js/confetti.min.js')}}"></script>
     <script>
-        var confettiSettings = { target: 'my-canvas',height: '2000',max: '200',width: '720' };
+        var confettiSettings = { target: 'my-canvas',height: '2000',max: '200' };
         var confetti = new ConfettiGenerator(confettiSettings);
     </script>
 
