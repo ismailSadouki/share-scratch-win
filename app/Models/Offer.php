@@ -35,7 +35,7 @@ class Offer extends Model
     {
         return $this->hasMany(Participant::class);
     }
-    public function sluggable()
+    public function sluggable() :array
     {
         return [
             'slug' => [
