@@ -150,12 +150,11 @@ class OfferController extends Controller
     {
         $offer = Offer::where('slug', $slug)->first();
 
-
         // حساب و التحقق من عدد الجوائز المتبقية
         $remaining_offers = $offer->valueOffers()->sum('will_get');
         // 
         $ip = FacadesRequest::ip();
-        $of_offferId_fer = 'of'.$slug.$offer->created_at.'ted';
+        $of_offferId_fer = 'of'.$slug.'ted';
 
         // get participant if exists
         $participant = Participant::where([
