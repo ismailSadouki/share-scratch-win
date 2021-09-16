@@ -44,7 +44,7 @@ class ParticipantController extends Controller
         $participant->phone = $request->phone;
         $participant->update();
 
-        return redirect()->back();
+        return back();
     }
 
     public function downloadImg($img) 

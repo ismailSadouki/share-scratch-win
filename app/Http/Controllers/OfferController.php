@@ -187,7 +187,6 @@ class OfferController extends Controller
             switch ($participant->status) {
                 case '0':
                     $status = 0;
-                    dd($participant);
                     return view('offer.show', compact('offer', 'status', 'remaining_offers','participant'));
                     break;
                 case '1':
