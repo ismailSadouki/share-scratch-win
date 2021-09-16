@@ -155,7 +155,7 @@ class OfferController extends Controller
         $remaining_offers = $offer->valueOffers()->sum('will_get');
         // 
         $ip = FacadesRequest::ip();
-        $of_offferId_fer = 'of'.$slug.'ted';
+        $of_offferId_fer = 'of'.$slug.'ted'.$offer->created_at;
 
         // get participant if exists
         $participant = Participant::where([
