@@ -168,6 +168,7 @@ class OfferController extends Controller
             $verification_ip = '1';
         }
 
+        // dd()
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
         if($verification_ip == $ip || Cookie::get($of_offferId_fer) == $of_offferId_fer){
@@ -183,6 +184,7 @@ class OfferController extends Controller
             if (!Cookie::has($of_offferId_fer)) {
                 Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
             }
+            dd($participant, 'success')''
 
             // احضار معلومات المشارك
             switch ($participant->status) {
