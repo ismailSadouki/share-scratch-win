@@ -146,7 +146,7 @@ class OfferController extends Controller
     
 
 
-    public function show($slug, $referece_code = null)
+    public function show($slug, $reference_code = null)
     {
         $offer = Offer::where('slug', $slug)->first();
 
@@ -212,9 +212,9 @@ class OfferController extends Controller
                     break;
             }
         } else {
-            if($referece_code != null) {
+            if($reference_code != null) {
                 // تحديث حالة الشخص الداعي
-                $promoter = Participant::where('referece_code', $referece_code)->first();
+                $promoter = Participant::where('reference_code', $reference_code)->first();
                 if ($promoter->status == 0) {
                     $promoter->status = 1;
                     $promoter->update();
