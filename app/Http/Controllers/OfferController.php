@@ -154,7 +154,7 @@ class OfferController extends Controller
         $remaining_offers = $offer->valueOffers()->sum('will_get');
         // 
         $ip = FacadesRequest::ip();
-        $of_offferId_fer = 'of'.$slug.'ted';
+        // $of_offferId_fer = 'of'.$slug.'ted';
 
         // get participant if exists
         $participant = Participant::where([
@@ -169,19 +169,20 @@ class OfferController extends Controller
 
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
-        if($verification_ip == $ip || Cookie::get($of_offferId_fer) == $of_offferId_fer){
+        //  || Cookie::get($of_offferId_fer) == $of_offferId_fer
+        if($verification_ip == $ip){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
-            if(!isset($participant)){
-                $participant = Participant::where([
-                    'offer_id' => $offer->id,
-                ])->first();
-                $participant->ip = $ip;
-                $participant->update();
-            }
-            // في حال الايبي موجود لكن الكوكيز غير موجود
-            if (!Cookie::has($of_offferId_fer)) {
-                Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
-            }
+            // if(!isset($participant)){
+            //     $participant = Participant::where([
+            //         'offer_id' => $offer->id,
+            //     ])->first();
+            //     $participant->ip = $ip;
+            //     $participant->update();
+            // }
+            // // في حال الايبي موجود لكن الكوكيز غير موجود
+            // if (!Cookie::has($of_offferId_fer)) {
+            //     Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
+            // }
 
             // احضار معلومات المشارك
             switch ($participant->status) {
@@ -221,7 +222,7 @@ class OfferController extends Controller
             }
 
             // انشاء كوكيز
-            Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
+            // Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
             // create unique reference_code
             do 
             {
