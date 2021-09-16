@@ -18,7 +18,7 @@ class CreateValueOffersTable extends Migration
             $table->foreignId('offer_id')->references('id')->on('offers')->cascadeOnDelete();
             $table->string('image')->nullable();
             $table->string('value')->nullable();
-            $table->string('will_get')->nullable();
+            $table->integer('will_get')->nullable();
             $table->timestamps();
         });
     }
