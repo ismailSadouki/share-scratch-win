@@ -149,12 +149,13 @@ class OfferController extends Controller
     public function show($slug, $reference_code = null)
     {
         $offer = Offer::where('slug', $slug)->first();
+     
 
         // حساب و التحقق من عدد الجوائز المتبقية
         $remaining_offers = $offer->valueOffers()->sum('will_get');
         // 
         $ip = FacadesRequest::ip();
-        // $of_offferId_fer = 'of'.$slug.'ted';
+
 
         // get participant if exists
         $participant = Participant::where([
@@ -169,20 +170,18 @@ class OfferController extends Controller
 
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
-        //  || Cookie::get($of_offferId_fer) == $of_offferId_fer
-        if($verification_ip == $ip){
+        if($verification_ip == $ip || Cookie::has('ip_address')){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
-            // if(!isset($participant)){
-            //     $participant = Participant::where([
-            //         'offer_id' => $offer->id,
-            //     ])->first();
-            //     $participant->ip = $ip;
-            //     $participant->update();
-            // }
+            if(!isset($participant)){
+                $participant = Participant::where([
+                    'ip' => Cookie::get('ip_address'),
+                    'offer_id' => $offer->id,
+                ])->first();
+            }
             // // في حال الايبي موجود لكن الكوكيز غير موجود
-            // if (!Cookie::has($of_offferId_fer)) {
-            //     Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
-            // }
+            if (!Cookie::has('ip_address')) {
+                Cookie::queue(Cookie::make('ip_address', $ip));
+            }
 
             // احضار معلومات المشارك
             switch ($participant->status) {
@@ -222,7 +221,7 @@ class OfferController extends Controller
             }
 
             // انشاء كوكيز
-            // Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
+            Cookie::queue(Cookie::make('ip_address', $ip));
             // create unique reference_code
             do 
             {

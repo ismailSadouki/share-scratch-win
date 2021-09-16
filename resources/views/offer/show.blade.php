@@ -294,7 +294,7 @@
                                 if(data.status == true) {
                                     var successElement = document.getElementById("successElement");
                                     successElement.classList.remove('d-none');
-                                    confetti.render();
+                                    // confetti.render();
                                     // console.log('success , true');
                                 } else {
                                 
@@ -321,7 +321,7 @@
     </script>
 @elseif($status == 2)
     <script>
-        confetti.render();
+        // confetti.render();
     </script>    
 @endif
 

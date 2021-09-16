@@ -238,7 +238,8 @@ section#create::after
     {
         transform: translate(-200px, -180px);
     }
-    section::after 
+    section::after,
+    section::before
     {
         display: none;
     }
