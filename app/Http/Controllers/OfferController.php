@@ -155,7 +155,7 @@ class OfferController extends Controller
         $remaining_offers = $offer->valueOffers()->sum('will_get');
         // 
         $ip = FacadesRequest::ip();
-        $of_offferId_fer = 'of'.$slug.'ted';
+        $of_offferId_fer = 'of'.$slug.$offer->created_at.'ted';
 
         // get participant if exists
         $participant = Participant::where([
@@ -168,7 +168,6 @@ class OfferController extends Controller
             $verification_ip = '1';
         }
 
-        // dd()
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
         if($verification_ip == $ip || Cookie::get($of_offferId_fer) == $of_offferId_fer){
@@ -184,7 +183,6 @@ class OfferController extends Controller
             if (!Cookie::has($of_offferId_fer)) {
                 Cookie::queue(Cookie::make($of_offferId_fer, $of_offferId_fer));
             }
-            dd($participant, 'success');
 
             // احضار معلومات المشارك
             switch ($participant->status) {
@@ -221,7 +219,6 @@ class OfferController extends Controller
                     $promoter->status = 1;
                     $promoter->update();
                 }
-            dd($promoter);
             }
 
             // انشاء كوكيز

@@ -67,16 +67,19 @@
 
   </div>
   <div class="row">
-    @if ($status == 1 && $remaining_offers > 0 && Carbon\Carbon::now()->toDateTimeString() < $offer->offer_end_in)
-        <div class="col-lg-12">
-            <section  id="gift" >
-                <div class="gift"> 
-                        <span id="giftBackground">
-                        {{-- script --}}
-                        </span>
-                </div>
-            </section>
+    @if ($status == 1 && $remaining_offers > 0)
+        @if (Carbon\Carbon::now()->toDateTimeString() < $offer->offer_end_in || $offer->offer_end_in == null )
+            <div class="col-lg-12">
+                <section  id="gift" >
+                    <div class="gift"> 
+                            <span id="giftBackground">
+                            {{-- script --}}
+                            </span>
+                    </div>
+                </section>
             </div>
+        @endif
+        
     @elseif ($status == 2)
         <div class="col-lg-12">
             <section  id="gift" >
