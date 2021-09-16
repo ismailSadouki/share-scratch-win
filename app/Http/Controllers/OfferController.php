@@ -155,7 +155,7 @@ class OfferController extends Controller
         $remaining_offers = $offer->valueOffers()->sum('will_get');
         // 
         $ip = FacadesRequest::ip();
-        $of_offferId_fer = 'of'.$slug.'ted'.$offer->created_at;
+        $of_offferId_fer = 'of'.$slug.'ted';
 
         // get participant if exists
         $participant = Participant::where([
@@ -212,6 +212,7 @@ class OfferController extends Controller
                     break;
             }
         } else {
+            dd($reference_code);
             if($reference_code != null) {
                 // تحديث حالة الشخص الداعي
                 $promoter = Participant::where('reference_code', $reference_code)->first();
