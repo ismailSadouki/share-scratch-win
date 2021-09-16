@@ -409,6 +409,13 @@ body
     color: #fff;
     font-weight: 700;
 }
+.clock .end-clock
+{
+    font-size: 1.7em !important;
+    color: #dbafaf !important;
+}
+
+
 
 
 
@@ -571,9 +578,11 @@ section#gift
         top: -20px;
         font-size: .9em;
     }
-}
+    .clock .end-clock
+    {
+        font-size: 1em !important;
+    }
 
-@media (max-width: 768px) {
     .info .box {
         width: 400px;
     }
@@ -620,6 +629,19 @@ section#gift
         font-size: .7em;
     }
 }
+@media (max-width: 768px) and (min-width: 500px) {
+
+    .sectionClock::after {
+        bottom: -2%;
+        left: 30%;
+    }
+    .sectionClock::before {
+        top: -5%;
+        right: 30%;
+       
+    }
+}
+
 @media (max-width: 500px) {
     .info .box {
         width: 300px;

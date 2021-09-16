@@ -177,7 +177,7 @@
                 <h2 class="dot">:</h2>
                 <h2 id="days">00</h2>
             @else   
-                <h2 style="font-size: 1.7em;color: #dbafaf;">لم يتم تحديد وقت لانتهاء المسابقة!</h2>
+                <h2 class="end-clock">لم يتم تحديد وقت لانتهاء المسابقة!</h2>
             @endisset
           
         </div>
@@ -294,7 +294,7 @@
                                 if(data.status == true) {
                                     var successElement = document.getElementById("successElement");
                                     successElement.classList.remove('d-none');
-                                    // confetti.render();
+                                    confetti.render();
                                     // console.log('success , true');
                                 } else {
                                 
@@ -321,7 +321,7 @@
     </script>
 @elseif($status == 2)
     <script>
-        // confetti.render();
+        confetti.render();
     </script>    
 @endif
 
