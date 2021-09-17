@@ -545,7 +545,8 @@ section#gift
     #square
     {
         min-height: 0vh;
-        margin-bottom: 80px;
+        margin-bottom: 0px;
+        margin-top: 200px;
     }
     .sectionClock::after {
         left: 7%;

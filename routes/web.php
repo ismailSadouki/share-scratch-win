@@ -16,10 +16,7 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-Route::get('s', function () {
- 
-    dd(Session::has('name'));
-});
+
 
 
 Auth::routes();
