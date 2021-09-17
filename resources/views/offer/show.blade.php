@@ -26,7 +26,6 @@
         @endif
     @endif    
     @if ($status == 2)
-    {{$status}}
         <div class="col-lg-12">
             <section  id="gift" >
                 <div class="gift">
@@ -81,6 +80,8 @@
                             </form>  
                         @endif    
                         <div class="buttonBox">
+    {{dd($status)}}
+
                             @if($valueOffer->value != null)
                                 <a href="{{ route('download.img', $valueOffer->value) }}">احفظ الصورة</a>
                             @else     
