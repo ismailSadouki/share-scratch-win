@@ -171,7 +171,8 @@ class OfferController extends Controller
 
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
-        if($verification_ip == $ip || Cookie::has($cookie_name)){
+        // $verification_ip == $ip ||
+        if( Cookie::has($cookie_name)){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             if(!isset($participant)){
                 $participant = Participant::where([
