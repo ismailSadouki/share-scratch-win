@@ -217,7 +217,17 @@
     {{-- clock end --}}
     <script>
         if("{{isset($offer['offer_end_in'])}}") {
+           
             var countDownDate = new Date("{{$offer['offer_end_in']}}").getTime();
+            //  error countDownDate "is NaN" in some browser
+            if (!countDownDate) {
+                var dateStr= "{{$offer['offer_end_in']}}"; //returned from mysql timestamp/datetime field
+                var a=dateStr.split(" ");
+                var d=a[0].split("-");
+                var t=a[1].split(":");
+                var countDownDate = new Date(d[0],(d[1]-1),d[2],t[0],t[1],t[2]);
+            }
+
             function clock() {
                 var now = new Date().getTime();
 
@@ -262,7 +272,7 @@
         }
     </script>  
 
-@if ($status != 2)
+@if ($status == 0)
     {{-- scratch to win --}}
     <script type="text/javascript" src="{{asset('js/wScratchPad.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
@@ -276,10 +286,6 @@
             jQuery.ajax({
                 url:"/check/status/"+"{{ $participant->id }}",
                 type: 'GET',
-                // data: {
-                //     name: groupName,
-                //     colour: "red"
-                // },
                 success: function( data ){
                     if (data.status == 1) {
                         var giftInStatus1 = document.getElementById("giftInStatus1");
@@ -289,7 +295,7 @@
                         var e = $('#giftBackground').wScratchPad({
                             size        : 50,          // The size of the brush/scratch.
                             bg          : "{{ isset($valueOffer->image) ? asset('valueOffers/'.$valueOffer->image) : asset('valueOffers/'.$valueOffer->value) }}",  // Background (image path or hex color).
-                            fg          : "{{ isset($offer->company_logo) ? asset('offers/'.$offer->company_logo) : asset('offers/'.$offer->company_name) }}",  // Foreground (image path or hex color).
+                            fg          : "{{ asset('scratch3.jpg') }}",  // Foreground (image path or hex color).
                             realtime    : true,       // Calculates percentage in realitime.
                             scratchMove: function(e, percent) {
                                 if (!executed) {
@@ -315,10 +321,8 @@
                                                     var successElement = document.getElementById("successElement");
                                                     successElement.classList.remove('d-none');
                                                     confetti.render();
-                                                    // console.log('success , true');
                                                 } else {
                                                 
-                                                    // console.log('success , false');
                                                 }
                                                 
                                             }, error: function(reject) {
@@ -328,10 +332,6 @@
                                         });
                                     }
                                 }
-                                
-                                // if (percent >= 63) {
-                                //     $('canvas').css("display", "none");
-                                // }
                             },
                             cursor      : 'progress', // Set cursor.
                             
@@ -340,7 +340,7 @@
   
                         console.log(data.status);
                     } else {
-                        setTimeout(fetchdata,1000);
+                        setTimeout(fetchdata,3000);
                     }
                 },
                 error: function (data) {
@@ -352,65 +352,73 @@
             setTimeout(fetchdata,1000);
         });
     </script>
-
- 
-  {{-- <script>
-      var executed = false;
-   
-      var e = $('#giftBackground').wScratchPad({
-          size        : 50,          // The size of the brush/scratch.
-          bg          : "{{ isset($valueOffer->image) ? asset('valueOffers/'.$valueOffer->image) : asset('valueOffers/'.$valueOffer->value) }}",  // Background (image path or hex color).
-          fg          : "{{ isset($offer->company_logo) ? asset('offers/'.$offer->company_logo) : asset('offers/'.$offer->company_name) }}",  // Foreground (image path or hex color).
-          realtime    : true,       // Calculates percentage in realitime.
-          scratchMove: function(e, percent) {
-              if (!executed) {
-                  if(percent >= 25) {
-                      executed = true;
-                      $.ajaxSetup({
-                          headers: {
-                              'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                          }
-                      });
-                      let participant_id = "{{ $participant->id }}";
-                      let valueOffer_id = "{{$valueOffer->id}}";
-                      $.ajax({
-                          type: 'post',
-                          url: "{{ route('offer.success') }}",
-                          data: {
-                              'participant_id': participant_id,
-                              'valueOffer_id': valueOffer_id,
-                          },
-                          success: function (data) {
-                          
-                              if(data.status == true) {
-                                  var successElement = document.getElementById("successElement");
-                                  successElement.classList.remove('d-none');
-                                  confetti.render();
-                                  // console.log('success , true');
-                              } else {
-                              
-                                  // console.log('success , false');
-                              }
-                              
-                          }, error: function(reject) {
-                              console.log('error , reject');
-                              
-                          }
-                      });
-                  }
-              }
-             
-              // if (percent >= 63) {
-              //     $('canvas').css("display", "none");
-              // }
-          },
-          cursor      : 'progress', // Set cursor.
-         
-          });
-
-  
-  </script>    --}}
 @endif    
+@if ($status == 1)
+    {{-- scratch to win --}}
+    <script type="text/javascript" src="{{asset('js/wScratchPad.min.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    
+    {{-- Fatch Status with ajax if status 1 --}}
+    <script>
+    var giftInStatus1 = document.getElementById("giftInStatus1");
+    giftInStatus1.classList.remove('d-none');
+    // scratch to win
+    var executed = false;  
+    var e = $('#giftBackground').wScratchPad({
+        size        : 50,          // The size of the brush/scratch.
+        bg          : "{{ isset($valueOffer->image) ? asset('valueOffers/'.$valueOffer->image) : asset('valueOffers/'.$valueOffer->value) }}",  // Background (image path or hex color).
+        fg          : "{{ asset('scratch3.jpg') }}",  // Foreground (image path or hex color).
+        realtime    : true,       // Calculates percentage in realitime.
+        scratchMove: function(e, percent) {
+            if (!executed) {
+                if(percent >= 25) {
+                    executed = true;
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    let participant_id = "{{ $participant->id }}";
+                    let valueOffer_id = "{{$valueOffer->id}}";
+                    $.ajax({
+                        type: 'post',
+                        url: "{{ route('offer.success') }}",
+                        data: {
+                            'participant_id': participant_id,
+                            'valueOffer_id': valueOffer_id,
+                        },
+                        success: function (data) {
+                        
+                            if(data.status == true) {
+                                var successElement = document.getElementById("successElement");
+                                successElement.classList.remove('d-none');
+                                confetti.render();
+                                // console.log('success , true');
+                            } else {
+                            
+                                // console.log('success , false');
+                            }
+                            
+                        }, error: function(reject) {
+                            console.log('error , reject');
+                            
+                        }
+                    });
+                }
+            }
+            
+            // if (percent >= 63) {
+            //     $('canvas').css("display", "none");
+            // }
+        },
+        cursor      : 'progress', // Set cursor.
+        
+        });
+
+     
+    </script>
+@endif   
+
 @if($status == 2)
     <script>
         confetti.render();
