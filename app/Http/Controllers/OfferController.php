@@ -179,6 +179,7 @@ class OfferController extends Controller
                     'offer_id' => $offer->id,
                 ])->first();
             }
+            dd($ip);
             // // في حال الايبي موجود لكن الكوكيز غير موجود
             // if (!Cookie::has($cookie_name)) {
             //     Cookie::queue(Cookie::make($cookie_name, $ip));
