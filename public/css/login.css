@@ -164,7 +164,7 @@ body
         width: 320px;
         height: 440px;
      }
-     .input-group {
-        width: 230px;
+     .hero .input-group {
+        width: 230px !important;
     }
 }
