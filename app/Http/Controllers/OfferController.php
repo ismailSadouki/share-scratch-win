@@ -150,7 +150,8 @@ class OfferController extends Controller
     {
         $offer = Offer::where('slug', $slug)->first();
     //  اسم الكوكيز
-        $cookie_name = "ip_address$offer->id+$offer->created_at";
+        $created_at = preg_replace('/\s+/', '', $offer->created_at);
+        $cookie_name = 'ip_address'.$offer->id.$created_at;
 
         // حساب و التحقق من عدد الجوائز المتبقية
         $remaining_offers = $offer->valueOffers()->sum('will_get');
