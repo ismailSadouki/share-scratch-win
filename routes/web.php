@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,10 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 */
 
 Route::get('s', function () {
-    dd(FacadesRequest::ip());
+ 
+    dd(Session::has('name'));
 });
+
 
 Auth::routes();
 

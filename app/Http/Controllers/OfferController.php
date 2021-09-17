@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Image;
 
@@ -173,11 +174,17 @@ class OfferController extends Controller
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
         // 
-        if( $verification_ip == $ip || Cookie::get($cookie_name) == $ip){
+    
+    if( $verification_ip == $ip || Cookie::get($cookie_name) == $ip || Session::has($cookie_name)){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             if(!isset($participant)){
                 $participant = Participant::where([
                     'ip' => Cookie::get($cookie_name),
+                    'offer_id' => $offer->id,
+                ])->first();
+            } elseif(Session::has($cookie_name)) {
+                $participant = Participant::where([
+                    'ip' => Session::get($cookie_name),
                     'offer_id' => $offer->id,
                 ])->first();
             }
@@ -229,6 +236,8 @@ class OfferController extends Controller
 
             // انشاء كوكيز
             Cookie::queue(Cookie::make($cookie_name, $ip));
+            Session::put($cookie_name, $ip);
+
             // create unique reference_code
             do 
             {
