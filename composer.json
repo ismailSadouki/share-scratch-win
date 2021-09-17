@@ -7,7 +7,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-gd": "*",
-        "arrilot/laravel-widgets": "^3.13",
         "cviebrock/eloquent-sluggable": "^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

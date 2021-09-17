@@ -13,7 +13,6 @@
     @if ($status != 2 && $remaining_offers > 0)
         @if (Carbon\Carbon::now()->toDateTimeString() < $offer->offer_end_in || $offer->offer_end_in == null )
 
-                {{-- @widget('CheckStatus', ['participant_id' => $participant->id]) --}}
                 <div class="col-lg-12 d-none " id="giftInStatus1"> 
                     <section  id="gift" >
                         <div class="gift"> 
