@@ -242,8 +242,9 @@ class OfferController extends Controller
             $participant->save();
             
             $status = 0;
+            $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
 
-            return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant'));
+            return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant','valueOffer'));
                     
         }
             

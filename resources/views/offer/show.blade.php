@@ -80,8 +80,6 @@
                             </form>  
                         @endif    
                         <div class="buttonBox">
-    {{dd($status)}}
-
                             @if($valueOffer->value != null)
                                 <a href="{{ route('download.img', $valueOffer->value) }}">احفظ الصورة</a>
                             @else     
