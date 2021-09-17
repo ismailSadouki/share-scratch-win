@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('s', function () {
+    dd(FacadesRequest::ip());
+});
 
 Auth::routes();
 
