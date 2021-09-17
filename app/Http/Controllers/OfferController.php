@@ -180,9 +180,9 @@ class OfferController extends Controller
                 ])->first();
             }
             // // في حال الايبي موجود لكن الكوكيز غير موجود
-            if (!Cookie::has($cookie_name)) {
-                Cookie::queue(Cookie::make($cookie_name, $ip));
-            }
+            // if (!Cookie::has($cookie_name)) {
+            //     Cookie::queue(Cookie::make($cookie_name, $ip));
+            // }
 
             // احضار معلومات المشارك
             switch ($participant->status) {
