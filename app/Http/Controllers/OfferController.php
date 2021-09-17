@@ -172,8 +172,8 @@ class OfferController extends Controller
 
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
-        // $verification_ip == $ip ||
-        if( Cookie::get($cookie_name) == $ip){
+        // 
+        if( $verification_ip == $ip || Cookie::get($cookie_name) == $ip){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             if(!isset($participant)){
                 $participant = Participant::where([
@@ -181,11 +181,10 @@ class OfferController extends Controller
                     'offer_id' => $offer->id,
                 ])->first();
             }
-            dd($verification_ip);
             // // في حال الايبي موجود لكن الكوكيز غير موجود
-            // if (!Cookie::has($cookie_name)) {
-            //     Cookie::queue(Cookie::make($cookie_name, $ip));
-            // }
+            if (!Cookie::has($cookie_name)) {
+                Cookie::queue(Cookie::make($cookie_name, $ip));
+            }
 
             // احضار معلومات المشارك
             switch ($participant->status) {
