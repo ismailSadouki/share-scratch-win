@@ -10,77 +10,23 @@
 <canvas id="my-canvas" style="position: absolute;"></canvas>
 
 <div class="row">
-    <div class="col-lg-7">
-      <section id="info" class="info">
-        <div class="box">
-            <i class="fa fa-quote-left fa2"></i>
-            <div class="text">
-                <i class="fa fa-quote-right fa1"></i>
-                <div class="content">
-                  <div class="offer-info">
-                    <div class="my-col">
-                      <h2>الاسم:</h2>
-                      <p>{{ $offer->name }}</p>
-                    </div>
-                    <div class="my-col">
-                      <h2>رقم الهاتف:</h2>
-                    <p>{{ $offer->phone }}</p>
-                    </div>
-                    <div class="my-col">
-                      <h2>العنوان:</h2>
-                    <p>{{ $offer->address }}</p>
-                    </div>
-    
-                  </div>
-                  <h2 style="padding-top: 10px;">قوانين المشاركة</h2>
-                  <p>{{ $offer->roles }}</p>
-                </div>
-            </div>
-        </div>
-      </section>
-    </div>
-
-    <div class="col-lg-5">
-      <section id="square" >
-
-        <div class="square">
-            <span></span>
-            <span></span>
-            <span></span>
-            <div class="content">
-                @if ($remaining_offers > 0 || $status == 2)
-                    <h2>ملاحظة</h2>
-                    <p>عليك اولا مشاركة العرض مع شخص واحد على الأقل و يدخل الرابط الخاص بك لتتمكن من مسح الصورة و رؤية هديتك!</p>
-                    <a href="https://wa.me/?text={{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" target="_blank">مشاركة</a> <br>
-                    <a href="{{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" class="d-none" id="url_share">مشاركة</a>
-                    <input type="submit" value="نسخ الرابط" class="btn btn-primary" id="copy">
-                @else    
-                    <h2>انتهت الجوائز او وقت المسابقة!</h2>
-                @endif
-                
-            </div>
-        </div>
-      </section>
-
-     
-    </div>
-
-  </div>
-  <div class="row">
-    @if ($status == 1 && $remaining_offers > 0)
+    @if ($status != 2 && $remaining_offers > 0)
         @if (Carbon\Carbon::now()->toDateTimeString() < $offer->offer_end_in || $offer->offer_end_in == null )
-            <div class="col-lg-12">
-                <section  id="gift" >
-                    <div class="gift"> 
-                            <span id="giftBackground">
-                            {{-- script --}}
-                            </span>
-                    </div>
-                </section>
-            </div>
+
+                {{-- @widget('CheckStatus', ['participant_id' => $participant->id]) --}}
+                <div class="col-lg-12 d-none " id="giftInStatus1"> 
+                    <section  id="gift" >
+                        <div class="gift"> 
+                                <span id="giftBackground">
+                                {{-- script --}}
+                                </span>
+                        </div>
+                    </section>
+                </div>
+            
         @endif
-        
-    @elseif ($status == 2)
+    @endif    
+    @if ($status == 2)
         <div class="col-lg-12">
             <section  id="gift" >
                 <div class="gift">
@@ -98,8 +44,7 @@
         </div>
     @endif
 
-    @if ($status != 0 )
-            <div class="col-lg-12 {{ $status == 1 ? 'd-none' : '' }}" id="successElement" style="transition: .5s ease">
+            <div class="col-lg-12 {{ $status != 2 ? 'd-none' : '' }}" id="successElement" style="transition: .5s ease">
                 <section  id="form" class="form">
                     <div class="loader">
                     <div class="dot" style="--i:0"></div>
@@ -157,10 +102,69 @@
                     <div class="dot" style="--i:9"></div>
                     </div>
                 </section>
-            </div>
-    @endif
 
+</div>
+
+<div class="row">
+    <div class="col-lg-5">
+        <section id="square" >
+  
+          <div class="square">
+              <span></span>
+              <span></span>
+              <span></span>
+              <div class="content">
+                  @if ($remaining_offers > 0 || $status == 2)
+                      <h2>ملاحظة</h2>
+                      <p>عليك اولا مشاركة العرض مع شخص واحد على الأقل و يدخل الرابط الخاص بك لتتمكن من مسح الصورة و رؤية هديتك!</p>
+                      <a href="https://wa.me/?text={{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" target="_blank">مشاركة</a> <br>
+                      <a href="{{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" class="d-none" id="url_share">مشاركة</a>
+                      <input type="submit" value="نسخ الرابط" class="btn btn-primary" id="copy">
+                  @else    
+                      <h2>انتهت الجوائز او وقت المسابقة!</h2>
+                  @endif
+                  
+              </div>
+          </div>
+        </section>
     </div>
+
+    <div class="col-lg-7">
+      <section id="info" class="info">
+        <div class="box">
+            <i class="fa fa-quote-left fa2"></i>
+            <div class="text">
+                <i class="fa fa-quote-right fa1"></i>
+                <div class="content">
+                  <div class="offer-info">
+                    <div class="my-col">
+                      <h2>الاسم:</h2>
+                      <p>{{ $offer->name }}</p>
+                    </div>
+                    <div class="my-col">
+                      <h2>رقم الهاتف:</h2>
+                    <p>{{ $offer->phone }}</p>
+                    </div>
+                    <div class="my-col">
+                      <h2>العنوان:</h2>
+                    <p>{{ $offer->address }}</p>
+                    </div>
+    
+                  </div>
+                  <h2 style="padding-top: 10px;">قوانين المشاركة</h2>
+                  <p>{{ $offer->roles }}</p>
+                </div>
+            </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+     
+
+  </div>
+
 
   
    <section class="sectionClock" id="sectionClock">
@@ -259,67 +263,156 @@
         }
     </script>  
 
-@if ($status == 1)
+@if ($status != 2)
     {{-- scratch to win --}}
     <script type="text/javascript" src="{{asset('js/wScratchPad.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+
+    {{-- Fatch Status with ajax if status 1 --}}
     <script>
-        var executed = false;
-     
-        var e = $('#giftBackground').wScratchPad({
-            size        : 50,          // The size of the brush/scratch.
-            bg          : "{{ isset($valueOffer->image) ? asset('valueOffers/'.$valueOffer->image) : asset('valueOffers/'.$valueOffer->value) }}",  // Background (image path or hex color).
-            fg          : "{{ isset($offer->company_logo) ? asset('offers/'.$offer->company_logo) : asset('offers/'.$offer->company_name) }}",  // Foreground (image path or hex color).
-            realtime    : true,       // Calculates percentage in realitime.
-            scratchMove: function(e, percent) {
-                if (!executed) {
-                    if(percent >= 25) {
-                        executed = true;
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        let participant_id = "{{ $participant->id }}";
-                        let valueOffer_id = "{{$valueOffer->id}}";
-                        $.ajax({
-                            type: 'post',
-                            url: "{{ route('offer.success') }}",
-                            data: {
-                                'participant_id': participant_id,
-                                'valueOffer_id': valueOffer_id,
-                            },
-                            success: function (data) {
-                            
-                                if(data.status == true) {
-                                    var successElement = document.getElementById("successElement");
-                                    successElement.classList.remove('d-none');
-                                    confetti.render();
-                                    // console.log('success , true');
-                                } else {
-                                
-                                    // console.log('success , false');
+        function fetchdata(){
+            $.ajaxSetup({
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            });
+            jQuery.ajax({
+                url:"/check/status/"+"{{ $participant->id }}",
+                type: 'GET',
+                // data: {
+                //     name: groupName,
+                //     colour: "red"
+                // },
+                success: function( data ){
+                    if (data.status == 1) {
+                        var giftInStatus1 = document.getElementById("giftInStatus1");
+                        giftInStatus1.classList.remove('d-none');
+                        // scratch to win
+                        var executed = false;  
+                        var e = $('#giftBackground').wScratchPad({
+                            size        : 50,          // The size of the brush/scratch.
+                            bg          : "{{ isset($valueOffer->image) ? asset('valueOffers/'.$valueOffer->image) : asset('valueOffers/'.$valueOffer->value) }}",  // Background (image path or hex color).
+                            fg          : "{{ isset($offer->company_logo) ? asset('offers/'.$offer->company_logo) : asset('offers/'.$offer->company_name) }}",  // Foreground (image path or hex color).
+                            realtime    : true,       // Calculates percentage in realitime.
+                            scratchMove: function(e, percent) {
+                                if (!executed) {
+                                    if(percent >= 25) {
+                                        executed = true;
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+                                        let participant_id = "{{ $participant->id }}";
+                                        let valueOffer_id = "{{$valueOffer->id}}";
+                                        $.ajax({
+                                            type: 'post',
+                                            url: "{{ route('offer.success') }}",
+                                            data: {
+                                                'participant_id': participant_id,
+                                                'valueOffer_id': valueOffer_id,
+                                            },
+                                            success: function (data) {
+                                            
+                                                if(data.status == true) {
+                                                    var successElement = document.getElementById("successElement");
+                                                    successElement.classList.remove('d-none');
+                                                    confetti.render();
+                                                    // console.log('success , true');
+                                                } else {
+                                                
+                                                    // console.log('success , false');
+                                                }
+                                                
+                                            }, error: function(reject) {
+                                                console.log('error , reject');
+                                                
+                                            }
+                                        });
+                                    }
                                 }
                                 
-                            }, error: function(reject) {
-                                console.log('error , reject');
-                                
-                            }
-                        });
-                    }
-                }
-               
-                // if (percent >= 63) {
-                //     $('canvas').css("display", "none");
-                // }
-            },
-            cursor      : 'progress', // Set cursor.
-           
-            });
+                                // if (percent >= 63) {
+                                //     $('canvas').css("display", "none");
+                                // }
+                            },
+                            cursor      : 'progress', // Set cursor.
+                            
+                            });
 
-    
+  
+                        console.log(data.status);
+                    } else {
+                        setTimeout(fetchdata,1000);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        $(document).ready(function(){
+            setTimeout(fetchdata,1000);
+        });
     </script>
-@elseif($status == 2)
+
+ 
+  {{-- <script>
+      var executed = false;
+   
+      var e = $('#giftBackground').wScratchPad({
+          size        : 50,          // The size of the brush/scratch.
+          bg          : "{{ isset($valueOffer->image) ? asset('valueOffers/'.$valueOffer->image) : asset('valueOffers/'.$valueOffer->value) }}",  // Background (image path or hex color).
+          fg          : "{{ isset($offer->company_logo) ? asset('offers/'.$offer->company_logo) : asset('offers/'.$offer->company_name) }}",  // Foreground (image path or hex color).
+          realtime    : true,       // Calculates percentage in realitime.
+          scratchMove: function(e, percent) {
+              if (!executed) {
+                  if(percent >= 25) {
+                      executed = true;
+                      $.ajaxSetup({
+                          headers: {
+                              'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                          }
+                      });
+                      let participant_id = "{{ $participant->id }}";
+                      let valueOffer_id = "{{$valueOffer->id}}";
+                      $.ajax({
+                          type: 'post',
+                          url: "{{ route('offer.success') }}",
+                          data: {
+                              'participant_id': participant_id,
+                              'valueOffer_id': valueOffer_id,
+                          },
+                          success: function (data) {
+                          
+                              if(data.status == true) {
+                                  var successElement = document.getElementById("successElement");
+                                  successElement.classList.remove('d-none');
+                                  confetti.render();
+                                  // console.log('success , true');
+                              } else {
+                              
+                                  // console.log('success , false');
+                              }
+                              
+                          }, error: function(reject) {
+                              console.log('error , reject');
+                              
+                          }
+                      });
+                  }
+              }
+             
+              // if (percent >= 63) {
+              //     $('canvas').css("display", "none");
+              // }
+          },
+          cursor      : 'progress', // Set cursor.
+         
+          });
+
+  
+  </script>    --}}
+@endif    
+@if($status == 2)
     <script>
         confetti.render();
     </script>    

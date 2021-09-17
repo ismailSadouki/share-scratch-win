@@ -188,7 +188,8 @@ class OfferController extends Controller
             switch ($participant->status) {
                 case '0':
                     $status = 0;
-                    return view('offer.show', compact('offer', 'status', 'remaining_offers','participant'));
+                    $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
+                    return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'valueOffer'));
                     break;
                 case '1':
                     if ($remaining_offers >= 1) {

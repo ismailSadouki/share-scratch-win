@@ -36,6 +36,9 @@ Route::get('/myoffer', [App\Http\Controllers\OfferController::class, 'myOffers']
 Route::get('/myoffer/{id}', [App\Http\Controllers\OfferController::class, 'showMyOffer'])->name('show.myoffers')->middleware('auth');
 
 
+// Check Participant status
+Route::get('/check/status/{id}', [App\Http\Controllers\ParticipantController::class, 'checkStatus'])->name('check.status');
+
 
 
 

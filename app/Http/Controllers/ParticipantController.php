@@ -56,4 +56,21 @@ class ParticipantController extends Controller
 
         return Response::download($file, $img, $headers);
     }
+
+
+    public function checkStatus($id) 
+    {
+        try {
+            $participant = Participant::findOrFail($id);
+        } catch (Error $e) {
+            report($e);
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+
+        return response()->json([
+            'status' => $participant->status,
+        ]);
+    }
 }
