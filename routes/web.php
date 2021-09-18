@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Participant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request as FacadesRequest;
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Session;
 */
 
 
+Route::get('s', function() {
+
+    dd(Participant::all());
+});
 
 
 Auth::routes();

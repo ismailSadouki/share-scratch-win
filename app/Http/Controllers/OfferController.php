@@ -8,6 +8,7 @@ use App\Models\ValueOffer;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Dotenv\Validator;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -222,6 +223,36 @@ class OfferController extends Controller
                     break;
             }
         } else {
+            
+            try{
+
+                        // انشاء كوكيز
+                Cookie::queue(Cookie::make($cookie_name, $ip));
+                Session::put($cookie_name, $ip);
+
+                // create unique reference_code
+                do 
+                {
+                    $reference_code = str::random(9);
+                    $check_url = Participant::where('reference_code', $reference_code)->first();
+                } while(!empty($check_url));
+                // تسجيل ان هذا الشخص  دخل هذه الصفحة
+                $participant = new Participant();
+                $participant->offer_id = $offer->id;
+                $participant->status = 0;
+                $participant->ip = $ip;
+                $participant->reference_code = $reference_code;
+                $participant->save();
+                
+                $status = 0;
+                $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
+            } catch (Error $e) {
+                report($e);
+                return back();
+            }
+    
+
+
             if($reference_code != null) {
                 // تحديث حالة الشخص الداعي
                 $promoter = Participant::where('reference_code', $reference_code)->first();
@@ -233,27 +264,6 @@ class OfferController extends Controller
                 }
                 
             }
-
-            // انشاء كوكيز
-            Cookie::queue(Cookie::make($cookie_name, $ip));
-            Session::put($cookie_name, $ip);
-
-            // create unique reference_code
-            do 
-            {
-                $reference_code = str::random(9);
-                $check_url = Participant::where('reference_code', $reference_code)->first();
-            } while(!empty($check_url));
-            // تسجيل ان هذا الشخص  دخل هذه الصفحة
-            $participant = new Participant();
-            $participant->offer_id = $offer->id;
-            $participant->status = 0;
-            $participant->ip = $ip;
-            $participant->reference_code = $reference_code;
-            $participant->save();
-            
-            $status = 0;
-            $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
 
             return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant','valueOffer'));
                     
