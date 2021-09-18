@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Session;
 */
 
 
-Route::get('s', function() {
+// Route::get('s', function() {
 
-    dd(Participant::all());
-});
+//     dd(Participant::all());
+// });
 
 
 Auth::routes();

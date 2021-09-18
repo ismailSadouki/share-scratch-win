@@ -10,6 +10,7 @@
 <canvas id="my-canvas" style="position: absolute;"></canvas>
 
 <div class="row">
+    <h2 style="color: #fff;text-align: center;z-index: 9;margin-top: 90px;">{{$offer->address}}</h2>
     @if ($status != 2 && $remaining_offers > 0)
         @if (Carbon\Carbon::now()->toDateTimeString() < $offer->offer_end_in || $offer->offer_end_in == null )
 
