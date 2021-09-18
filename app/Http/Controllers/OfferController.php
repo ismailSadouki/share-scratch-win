@@ -175,8 +175,8 @@ class OfferController extends Controller
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
         // 
-    //  
-    if($verification_ip == $ip || Cookie::get($cookie_name) == $ip || Session::has($cookie_name)){
+    //  Cookie::get($cookie_name) == $ip ||
+    if($verification_ip == $ip ||  Session::has($cookie_name)){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             if(!isset($participant)){
                 $participant = Participant::where([
@@ -188,17 +188,18 @@ class OfferController extends Controller
                     'ip' => Session::get($cookie_name),
                     'offer_id' => $offer->id,
                 ])->first();
-            } elseif(Cookie::get($cookie_name) == $ip) {
-                $participant = Participant::where([
-                    'ip' => $ip,
-                    'offer_id' => $offer->id,
-                ])->first();
-            }
+            } 
 
+            // elseif(Cookie::get($cookie_name) == $ip) {
+            //     $participant = Participant::where([
+            //         'ip' => $ip,
+            //         'offer_id' => $offer->id,
+            //     ])->first();
+            // }
             // // في حال الايبي موجود لكن الكوكيز غير موجود
-            if (!Cookie::has($cookie_name)) {
-                Cookie::queue(Cookie::make($cookie_name, $ip));
-            }
+            // if (!Cookie::has($cookie_name)) {
+            //     Cookie::queue(Cookie::make($cookie_name, $ip));
+            // }
             $new = false;
             // احضار معلومات المشارك
             switch ($participant->status) {
