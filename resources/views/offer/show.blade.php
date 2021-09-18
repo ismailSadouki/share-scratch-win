@@ -218,6 +218,9 @@
     {{-- Confetti Effect --}}
     <script type="text/javascript" src="{{asset('js/confetti.min.js')}}"></script>
     <script>
+                        console.log('localstorage' + localStorage["{{$offer->id}}"]);
+        console.log('status' +"{{$status}}");
+        
         var confettiSettings = { target: 'my-canvas',height: '2000',max: '200' };
         var confetti = new ConfettiGenerator(confettiSettings);
     </script>
@@ -395,8 +398,6 @@
     
     {{-- Fatch Status with ajax if status 1 --}}
     <script>
-                console.log('localstorage' + localStorage["{{$offer->id}}"]);
-        console.log('status' +"{{$status}}");
 
     var giftInStatus1 = document.getElementById("giftInStatus1");
     giftInStatus1.classList.remove('d-none');
