@@ -183,15 +183,17 @@ class OfferController extends Controller
                     'ip' => Cookie::get($cookie_name),
                     'offer_id' => $offer->id,
                 ])->first();
-                dd($participant, '1');
             } elseif(Session::has($cookie_name)) {
                 $participant = Participant::where([
                     'ip' => Session::get($cookie_name),
                     'offer_id' => $offer->id,
                 ])->first();
-                dd($participant, '2');
+            } elseif(Cookie::get($cookie_name) == $ip) {
+                $participant = Participant::where([
+                    'ip' => $ip,
+                    'offer_id' => $offer->id,
+                ])->first();
             }
-            dd($participant, '3');
 
             // // في حال الايبي موجود لكن الكوكيز غير موجود
             if (!Cookie::has($cookie_name)) {
