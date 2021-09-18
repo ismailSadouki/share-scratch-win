@@ -253,17 +253,18 @@ class OfferController extends Controller
     
 
 
-            // if($reference_code != null) {
-            //     // تحديث حالة الشخص الداعي
-            //     $promoter = Participant::where('reference_code', $reference_code)->first();
-            //     if ($promoter){
-            //         if ($promoter->status == 0) {
-            //             $promoter->status = 1;
-            //             $promoter->update();
-            //         }
-            //     }
+            if($reference_code != null) {
+                dd(FacadesRequest::all());
+                // تحديث حالة الشخص الداعي
+                $promoter = Participant::where('reference_code', $reference_code)->first();
+                if ($promoter){
+                    if ($promoter->status == 0) {
+                        $promoter->status = 1;
+                        $promoter->update();
+                    }
+                }
                 
-            // }
+            }
 
             return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant','valueOffer'));
                     
