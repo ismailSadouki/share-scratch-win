@@ -233,15 +233,15 @@ class OfferController extends Controller
                 // create unique reference_code
                 do 
                 {
-                    $reference_code = str::random(9);
-                    $check_url = Participant::where('reference_code', $reference_code)->first();
+                    $reference_code_create = str::random(9);
+                    $check_url = Participant::where('reference_code', $reference_code_create)->first();
                 } while(!empty($check_url));
                 // تسجيل ان هذا الشخص  دخل هذه الصفحة
                 $participant = new Participant();
                 $participant->offer_id = $offer->id;
                 $participant->status = 0;
                 $participant->ip = $ip;
-                $participant->reference_code = $reference_code;
+                $participant->reference_code = $reference_code_create;
                 $participant->save();
                 
                 $status = 0;
