@@ -494,6 +494,9 @@
                 }
             });
         }
+        console.log(localStorage["{{$offer->id}}"]);
+        console.log("{{$status}}");
+
     </script> 
 @endif
 
