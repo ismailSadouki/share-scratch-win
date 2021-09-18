@@ -470,28 +470,28 @@
         if(!localStorage["{{$offer->id}}"]) {
             localStorage["{{$offer->id}}"] = "{{$participant->id}}";
             // add cookie and session
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            let cookie_name = "{{ $cookie_name }}";
-            let ip = "{{$ip}}";
-            $.ajax({
-                type: 'post',
-                url: "{{ route('session.cookie') }}",
-                data: {
-                    'cookie_name': cookie_name,
-                    'ip': ip,
-                },
-                success: function (data) {
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
+            // let cookie_name = "{{ $cookie_name }}";
+            // let ip = "{{$ip}}";
+            // $.ajax({
+            //     type: 'post',
+            //     url: "{{ route('session.cookie') }}",
+            //     data: {
+            //         'cookie_name': cookie_name,
+            //         'ip': ip,
+            //     },
+            //     success: function (data) {
 
-                    console.log(data.status);
+            //         console.log(data.status);
                 
-                }, error: function(reject) {
-                    console.log('error , reject'); 
-                }
-            });
+            //     }, error: function(reject) {
+            //         console.log('error , reject'); 
+            //     }
+            // });
         }
     </script> 
 {{-- @endif --}}
