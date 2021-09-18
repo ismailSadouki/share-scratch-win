@@ -124,7 +124,7 @@
                   @if ($remaining_offers > 0 || $status == 2)
                       <h2>ملاحظة</h2>
                       <p>عليك اولا مشاركة العرض مع شخص واحد على الأقل و يدخل الرابط الخاص بك لتتمكن من مسح الصورة و رؤية هديتك!</p>
-                      <a href="https://wa.me/?text=%0aمرحبا...%0aساعدني في مسابقة امسح و اربح معي هدية و يطلب مني حتى احصل عليها ان تشاركني فيها%0a{{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}%0aيمكنك ان تربح انت ايضا!" target="_blank">مشاركة</a> <br>
+                      <a href="https://wa.me/?text=%0aمرحبا...%0aساعدني في مسابقة امسح و اربح معي هدية و يطلب مني حتى احصل عليها ان تشاركني فيها%0a{{ "sadouki-scratch-win.herokuapp.com/offer/show/{$offer->slug}/$participant->reference_code" }}%0aيمكنك ان تربح انت ايضا!" target="_blank">مشاركة</a> <br>
                       <a href="{{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" class="d-none" id="url_share">مشاركة</a>
                       <input type="submit" value="نسخ الرابط" class="btn btn-primary" id="copy">
                   @else    
