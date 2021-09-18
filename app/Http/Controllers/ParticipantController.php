@@ -41,13 +41,6 @@ class ParticipantController extends Controller
     public function savePhone(Request $request, $id) 
     {
         $participant = Participant::findOrFail($id);
-        $phone_exists = Participant::where([
-                                                'offer_id' => $participant->offer_id,
-                                                'phone' => $request->phone
-                                                ])->first();
-        if ($phone_exists != null) {
-            return back()->withErrors(['msg' => 'هذا الرقم مسجل من قبل في هذه المسابقة!']);
-        }
         $participant->phone = $request->phone;
         $participant->update();
 
