@@ -395,6 +395,9 @@
     
     {{-- Fatch Status with ajax if status 1 --}}
     <script>
+                console.log('localstorage' + localStorage["{{$offer->id}}"]);
+        console.log('status' +"{{$status}}");
+
     var giftInStatus1 = document.getElementById("giftInStatus1");
     giftInStatus1.classList.remove('d-none');
     // scratch to win
@@ -494,9 +497,6 @@
                 }
             });
         }
-        console.log(localStorage["{{$offer->id}}"]);
-        console.log("{{$status}}");
-
     </script> 
 @endif
 
