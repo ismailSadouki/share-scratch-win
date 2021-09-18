@@ -256,7 +256,6 @@ class OfferController extends Controller
             if($reference_code != null) {
                 // تحديث حالة الشخص الداعي
                 $promoter = Participant::where('reference_code', $reference_code)->first();
-            dd($promoter, $reference_code);
                 if ($promoter){
                     if ($promoter->status == 0) {
                         $promoter->status = 1;
