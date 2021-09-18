@@ -254,7 +254,7 @@ class OfferController extends Controller
                 }
                 
             }
-            $new = true;
+            $new = 'true';
             
             return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant','valueOffer', 'new', 'cookie_name', 'ip'));
                     
