@@ -185,29 +185,26 @@ class OfferController extends Controller
             //     ])->first();
             // } 
         
+            $new = false;
             // احضار معلومات المشارك
             switch ($participant->status) {
                 case '0':
                     $status = 0;
-                    $new = false;
                     $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
                     return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'valueOffer', 'new'));
                     break;
                 case '1':
                     if ($remaining_offers >= 1) {
-                        $new = false;
                         $status = 1;
                         $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
                         return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant' ,'new'));
                     } else {
                         $status = 0;
-                        $new = false;
                         return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'new'));
                     }
 
                     break;
                 case '2':
-                    $new = false;
                     $status = 2;
                     $valueOffer = $participant->valueOffer()->first();
                     return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant' , 'new'));
