@@ -329,7 +329,7 @@
                             realtime    : true,       // Calculates percentage in realitime.
                             scratchMove: function(e, percent) {
                                 if (!executed) {
-                                    if(percent >= 25) {
+                                    if(percent >= 40) {
                                         executed = true;
                                         $.ajaxSetup({
                                             headers: {
@@ -405,7 +405,7 @@
         realtime    : true,       // Calculates percentage in realitime.
         scratchMove: function(e, percent) {
             if (!executed) {
-                if(percent >= 25) {
+                if(percent >= 40) {
                     executed = true;
                     $.ajaxSetup({
                         headers: {
@@ -469,29 +469,7 @@
     <script>
         if(!localStorage["{{$offer->id}}"]) {
             localStorage["{{$offer->id}}"] = "{{$participant->id}}";
-            // add cookie and session
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
-            // let cookie_name = "{{ $cookie_name }}";
-            // let ip = "{{$ip}}";
-            // $.ajax({
-            //     type: 'post',
-            //     url: "{{ route('session.cookie') }}",
-            //     data: {
-            //         'cookie_name': cookie_name,
-            //         'ip': ip,
-            //     },
-            //     success: function (data) {
-
-            //         console.log(data.status);
-                
-            //     }, error: function(reject) {
-            //         console.log('error , reject'); 
-            //     }
-            // });
+           
         }
     </script> 
 {{-- @endif --}}

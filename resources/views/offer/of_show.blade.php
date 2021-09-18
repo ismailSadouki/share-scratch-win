@@ -316,7 +316,7 @@
                             realtime    : true,       // Calculates percentage in realitime.
                             scratchMove: function(e, percent) {
                                 if (!executed) {
-                                    if(percent >= 25) {
+                                    if(percent >= 40) {
                                         executed = true;
                                         $.ajaxSetup({
                                             headers: {
@@ -392,7 +392,7 @@
         realtime    : true,       // Calculates percentage in realitime.
         scratchMove: function(e, percent) {
             if (!executed) {
-                if(percent >= 25) {
+                if(percent >= 40) {
                     executed = true;
                     $.ajaxSetup({
                         headers: {

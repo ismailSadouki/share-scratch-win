@@ -25,7 +25,7 @@
                 </span>
             @enderror
 
-            <input type="password" name="password" id="password" class="input-field @error('password') is-invalid @enderror" placeholder="{{ __('طامة السر') }}" required autocomplete="current-password">
+            <input type="password" name="password" id="password" class="input-field @error('password') is-invalid @enderror" placeholder="{{ __('كلمة السر') }}" required autocomplete="current-password">
 
             @error('password')
                 <span class="invalid-feedback" role="alert">
