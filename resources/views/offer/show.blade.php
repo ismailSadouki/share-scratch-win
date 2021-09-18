@@ -4,7 +4,7 @@
 
     {{-- @if ($new == true) --}}
         <script>
-            if(localStorage[13]) {
+            if(localStorage[29]) {
                 var participantId = localStorage["{{$offer->id}}"];
                 var offerId = "{{$offer->id}}";
                 let url = "{{url('/of/show/:offerId/:participantId')}}";
