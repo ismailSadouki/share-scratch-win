@@ -12,6 +12,7 @@
                 url = url.replace(':participantId', participantId);
                 window.location.href = url;
             } 
+            console.log(localStorage["{{$offer->id}}"]);
         </script> 
     @endif
 
