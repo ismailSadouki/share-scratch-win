@@ -178,12 +178,7 @@ class OfferController extends Controller
     //  Cookie::get($cookie_name) == $ip ||
     if($verification_ip == $ip ||  Session::has($cookie_name)){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
-            if(!isset($participant)){
-                $participant = Participant::where([
-                    'ip' => Cookie::get($cookie_name),
-                    'offer_id' => $offer->id,
-                ])->first();
-            } elseif(Session::has($cookie_name)) {
+            if(Session::has($cookie_name)) {
                 $participant = Participant::where([
                     'ip' => Session::get($cookie_name),
                     'offer_id' => $offer->id,
