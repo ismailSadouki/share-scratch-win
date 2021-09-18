@@ -82,14 +82,14 @@ class OfferController extends Controller
             $offer->company_logo = $img_name;
 
         }else {
-            $image = 'scratch.png';
+            $image = 'scratch3.jpg';
             $img_name = time().'.'.'png';
      
             $imgFile = Image::make($image);
      
-            $imgFile->text( $request->company_name , 700, 450, function($font) { 
+            $imgFile->text( '.' , 700, 450, function($font) { 
                 $font->file(base_path('public/Lalezar-Regular.ttf'));
-                $font->size(120);  
+                $font->size(1);  
                 $font->color('#dbafaf');  
                 $font->align('center');  
                 $font->valign('bottom');  
@@ -151,7 +151,7 @@ class OfferController extends Controller
     public function show($slug, $reference_code = null)
     {
         $offer = Offer::where('slug', $slug)->first();
-    //  اسم الكوكيز
+        //  اسم الكوكيز
         $created_at = preg_replace('/\s+/', '', $offer->created_at);
         $cookie_name = 'ip_address'.$offer->id.$created_at;
 
@@ -175,8 +175,8 @@ class OfferController extends Controller
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
         // 
-    //  Cookie::get($cookie_name) == $ip ||  Session::has($cookie_name)
-    if($verification_ip == $ip ){
+      //  Cookie::get($cookie_name) == $ip ||  Session::has($cookie_name)
+      if($verification_ip == $ip ){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             // if(Session::has($cookie_name)) {
             //     $participant = Participant::where([
