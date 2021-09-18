@@ -250,11 +250,11 @@ class OfferController extends Controller
                 report($e);
                 return back();
             }
+            dd(FacadesRequest::all());
     
 
 
             if($reference_code != null) {
-                dd(FacadesRequest::all());
                 // تحديث حالة الشخص الداعي
                 $promoter = Participant::where('reference_code', $reference_code)->first();
                 if ($promoter){
