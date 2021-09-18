@@ -2,7 +2,7 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/offer.css') }}">
 
-    @if ($new == true)
+    {{-- @if ($new == true) --}}
         <script>
             if(localStorage["{{$offer->id}}"]) {
                 var participantId = localStorage["{{$offer->id}}"];
@@ -14,7 +14,7 @@
             } 
             console.log(localStorage["{{$offer->id}}"]);
         </script> 
-    @endif
+    {{-- @endif --}}
 
   
 
