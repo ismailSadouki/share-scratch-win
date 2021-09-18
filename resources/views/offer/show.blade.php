@@ -64,6 +64,9 @@
                             <div class="input">
                                 <div class="inputBox">
                                     <label for="phone">الواتساب الخاص بك</label>
+                                    @if($errors->any())
+                                        <label style="color:red; background-color: red;color: #fff;">{{$errors->first()}}</label>
+                                    @endif
                                     <input type="text" name="phone" placeholder="+2130984xxxx">
                                 </div>
                             </div>     
@@ -79,11 +82,14 @@
                                 </div>
                             </form>  
                         @endif    
+
                         <div class="buttonBox">
-                            @if($valueOffer->value != null)
-                                <a href="{{ route('download.img', $valueOffer->value) }}">احفظ الصورة</a>
-                            @else     
-                                <a href="{{ route('download.img', $valueOffer->image) }}">احفظ الصورة</a>
+                            @if ($status == 2 || $remaining_offers > 0)                 
+                                @if($valueOffer->value != null)
+                                    <a href="{{ route('download.img', $valueOffer->value) }}">احفظ الصورة</a>
+                                @else     
+                                    <a href="{{ route('download.img', $valueOffer->image) }}">احفظ الصورة</a>
+                                @endif
                             @endif
                           
                         </div>
@@ -105,8 +111,10 @@
 </div>
 
 <div class="row">
+    @if ($status != 2)
+        
     <div class="col-lg-5">
-        <section id="square" >
+        <section id="square" class="">
   
           <div class="square">
               <span></span>
@@ -116,7 +124,7 @@
                   @if ($remaining_offers > 0 || $status == 2)
                       <h2>ملاحظة</h2>
                       <p>عليك اولا مشاركة العرض مع شخص واحد على الأقل و يدخل الرابط الخاص بك لتتمكن من مسح الصورة و رؤية هديتك!</p>
-                      <a href="https://wa.me/?text={{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" target="_blank">مشاركة</a> <br>
+                      <a href="https://wa.me/?text=%0aمرحبا...%0aساعدني في مسابقة امسح و اربح معي هدية و يطلب مني حتى احصل عليها ان تشاركني فيها%0a{{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}%0aيمكنك ان تربح انت ايضا!" target="_blank">مشاركة</a> <br>
                       <a href="{{ url("/offer/show/{$offer->slug}/$participant->reference_code") }}" class="d-none" id="url_share">مشاركة</a>
                       <input type="submit" value="نسخ الرابط" class="btn btn-primary" id="copy">
                   @else    
@@ -127,6 +135,7 @@
           </div>
         </section>
     </div>
+    @endif
 
     <div class="col-lg-7">
       <section id="info" class="info">
@@ -272,7 +281,7 @@
         }
     </script>  
 
-@if ($status == 0)
+@if ($status == 0 && $remaining_offers > 0)
     {{-- scratch to win --}}
     <script type="text/javascript" src="{{asset('js/wScratchPad.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
@@ -288,6 +297,13 @@
                 type: 'GET',
                 success: function( data ){
                     if (data.status == 1) {
+                        // delete share section 
+                        
+                        var squaresquare = document.getElementById("square");
+                        squaresquare.classList.add('d-none');
+                        squaresquare.style.display = "none";
+
+                        // show success page
                         var giftInStatus1 = document.getElementById("giftInStatus1");
                         giftInStatus1.classList.remove('d-none');
                         // scratch to win
@@ -318,6 +334,9 @@
                                             success: function (data) {
                                             
                                                 if(data.status == true) {
+                                                    var squaresquare = document.getElementById("square");
+                                                    squaresquare.classList.add('d-none');
+                                                    squaresquare.style.display = "none";
                                                     var successElement = document.getElementById("successElement");
                                                     successElement.classList.remove('d-none');
                                                     confetti.render();
@@ -353,7 +372,7 @@
         });
     </script>
 @endif    
-@if ($status == 1)
+@if ($status == 1 && $remaining_offers > 0)
     {{-- scratch to win --}}
     <script type="text/javascript" src="{{asset('js/wScratchPad.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
@@ -390,6 +409,9 @@
                         success: function (data) {
                         
                             if(data.status == true) {
+                                var squaresquare = document.getElementById("square");
+                                squaresquare.classList.add('d-none');
+                                squaresquare.style.display = "none";
                                 var successElement = document.getElementById("successElement");
                                 successElement.classList.remove('d-none');
                                 confetti.render();
