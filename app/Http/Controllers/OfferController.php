@@ -175,8 +175,8 @@ class OfferController extends Controller
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
         // 
-    
-    if( $verification_ip == $ip || Cookie::get($cookie_name) == $ip || Session::has($cookie_name)){
+    //  
+    if($verification_ip == $ip || Cookie::get($cookie_name) == $ip || Session::has($cookie_name)){
             // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
             if(!isset($participant)){
                 $participant = Participant::where([
@@ -193,29 +193,29 @@ class OfferController extends Controller
             if (!Cookie::has($cookie_name)) {
                 Cookie::queue(Cookie::make($cookie_name, $ip));
             }
-
+            $new = false;
             // احضار معلومات المشارك
             switch ($participant->status) {
                 case '0':
                     $status = 0;
                     $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
-                    return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'valueOffer'));
+                    return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'valueOffer', 'new'));
                     break;
                 case '1':
                     if ($remaining_offers >= 1) {
                         $status = 1;
                         $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
-                        return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant'));
+                        return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant' ,'new'));
                     } else {
                         $status = 0;
-                        return view('offer.show', compact('offer', 'status', 'remaining_offers','participant'));
+                        return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'new'));
                     }
 
                     break;
                 case '2':
                     $status = 2;
                     $valueOffer = $participant->valueOffer()->first();
-                    return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant'));
+                    return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant' , 'new'));
                     break;
                     
                 default:
@@ -226,9 +226,7 @@ class OfferController extends Controller
             
             try{
 
-                        // انشاء كوكيز
-                Cookie::queue(Cookie::make($cookie_name, $ip));
-                Session::put($cookie_name, $ip);
+                      
 
                 // create unique reference_code
                 do 
@@ -264,11 +262,69 @@ class OfferController extends Controller
                 }
                 
             }
+            $new = true;
 
-            return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant','valueOffer'));
+            return view('offer.show', compact('offer', 'status', 'remaining_offers', 'participant','valueOffer', 'new', 'cookie_name', 'ip'));
                     
         }
             
         
+    }
+
+
+    public function ofShow($offerId, $participantId)
+    {
+        $offer = Offer::where('id', $offerId)->first();
+
+        // حساب و التحقق من عدد الجوائز المتبقية
+        $remaining_offers = $offer->valueOffers()->sum('will_get');
+        // get participant
+        $participant = Participant::where([
+            'id' => $participantId,
+            'offer_id' => $offer->id,
+        ])->first();
+
+
+        $new = false;
+        // احضار معلومات المشارك
+        switch ($participant->status) {
+            case '0':
+                $status = 0;
+                $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
+                return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'valueOffer', 'new'));
+                break;
+            case '1':
+                if ($remaining_offers >= 1) {
+                    $status = 1;
+                    $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
+                    return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant' ,'new'));
+                } else {
+                    $status = 0;
+                    return view('offer.show', compact('offer', 'status', 'remaining_offers','participant', 'new'));
+                }
+
+                break;
+            case '2':
+                $status = 2;
+                $valueOffer = $participant->valueOffer()->first();
+                return view('offer.show', compact('offer', 'status', 'remaining_offers', 'valueOffer','participant' , 'new'));
+                break;
+                
+            default:
+                return back();
+                break;
+        }
+    }
+
+
+    public function sessionCookie(Request $request)
+    {
+        Cookie::queue(Cookie::make($request->cookie_name, $request->ip));
+        Session::put($request->cookie_name, $request->ip);
+
+        return response()->json([
+            'status' => true,
+        ]);
+
     }
 }

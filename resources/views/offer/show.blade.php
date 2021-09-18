@@ -2,7 +2,21 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/offer.css') }}">
 
+    @if ($new == true)
+        <script>
+            if(localStorage["{{$offer->id}}"]) {
+                var participantId = localStorage["{{$offer->id}}"];
+                var offerId = "{{$offer->id}}";
+                let url = "{{url('/of/show/:offerId/:participantId')}}";
+                url = url.replace(':offerId', offerId);
+                url = url.replace(':participantId', participantId);
+                window.location.href = url;
+            } 
+        </script> 
+    @endif
+
   
+
 @endsection
 
 @section('content')
@@ -448,5 +462,38 @@
     </script>    
 @endif
 
+
+
+{{-- if new partecipant --}}
+@if ($new == true)
+    <script>
+        if(!localStorage["{{$offer->id}}"]) {
+            localStorage["{{$offer->id}}"] = "{{$participant->id}}";
+            // add cookie and session
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            let cookie_name = "{{ $cookie_name }}";
+            let ip = "{{$ip}}";
+            $.ajax({
+                type: 'post',
+                url: "{{ route('session.cookie') }}",
+                data: {
+                    'cookie_name': cookie_name,
+                    'ip': ip,
+                },
+                success: function (data) {
+
+                    console.log(data.status);
+                
+                }, error: function(reject) {
+                    console.log('error , reject'); 
+                }
+            });
+        }
+    </script> 
+@endif
 
 @endsection

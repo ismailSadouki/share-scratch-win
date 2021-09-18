@@ -32,6 +32,10 @@ Route::get('/offer/create', [App\Http\Controllers\OfferController::class, 'creat
 Route::post('/offer/store', [App\Http\Controllers\OfferController::class, 'store'])->name('offer.store')->middleware('auth');
 Route::get('/offer/show/{slug}', [App\Http\Controllers\OfferController::class, 'show']);
 Route::get('/offer/show/{slug}/{reference_code}', [App\Http\Controllers\OfferController::class, 'show']);
+Route::get('/of/show/{offerId}/{participantId}', [App\Http\Controllers\OfferController::class, 'ofShow']);
+//  add cookie and session
+Route::post('/sessuion/cookie', [App\Http\Controllers\OfferController::class, 'sessionCookie'])->name('session.cookie');
+
 
 Route::post('/offer/success', [App\Http\Controllers\ParticipantController::class, 'offerSuccess'])->name('offer.success');
 Route::post('/offer/phone/{id}', [App\Http\Controllers\ParticipantController::class, 'savePhone'])->name('save.phone');
