@@ -220,7 +220,7 @@
     <script>
                         console.log('localstorage' + localStorage["{{$offer->id}}"]);
         console.log('status' +"{{$status}}");
-        console.log('new? ' + "{{$new}}");
+        console.log("new? {{$new}}");
         console.log('test ' + true);
 
         var confettiSettings = { target: 'my-canvas',height: '2000',max: '200' };
