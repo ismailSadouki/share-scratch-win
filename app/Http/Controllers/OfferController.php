@@ -33,7 +33,7 @@ class OfferController extends Controller
     }
     public function showMyOffer($id)
     {
-        $offer = Offer::findOrFail($id)->first();
+        $offer = Offer::findOrFail($id);
         $participants = Participant::where(['offer_id' => $id, 'status' => 2, ['value_offer_id', '!=', null] ])->get();
         // حساب و التحقق من عدد الجوائز المتبقية
         $remaining_offers = $offer->valueOffers()->sum('will_get');
