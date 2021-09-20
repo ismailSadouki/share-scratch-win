@@ -23,7 +23,7 @@
 <canvas id="my-canvas" style="position: absolute;"></canvas>
 
 <div class="row">
-    <h2 style="color: #fff;text-align: center;z-index: 9;margin-top: 90px;">{{$offer->address}}</h2>
+    <h2 style="color: #fff;text-align: center;z-index: 9;margin-top: 90px;">{{$offer->name}}</h2>
     @if ($status != 2 && $remaining_offers > 0)
         @if (Carbon\Carbon::now()->toDateTimeString() < $offer->offer_end_in || $offer->offer_end_in == null )
 
@@ -160,7 +160,7 @@
                 <div class="content">
                   <div class="offer-info">
                     <div class="my-col">
-                      <h2>الاسم:</h2>
+                      <h2>اسم العرض:</h2>
                       <p>{{ $offer->name }}</p>
                     </div>
                     <div class="my-col">

@@ -18,7 +18,7 @@
     <div class="my-col">
       <div class="inputBox">
         <input type="text" name="name" id="name"  required>
-        <span class="text">الاسم</span>
+        <span class="text">الاسم العرض</span>
         <span class="line"></span>
       </div>
     </div>
@@ -44,6 +44,7 @@
         <input type="File" name="company_logo" id="company_name"  class="logo not-required">
         <span class="text">شعار او اسم الشركة</span>
         <span class="line"></span>
+        <sup style="color:rgb(190, 107, 107);top: -35px;right: 170px;">اختياري*</sup>
       </div>
     </div>
   </div>
@@ -54,7 +55,7 @@
         <input type="date" id="date" name="date" class="not-required">
         <span class="text">تاريخ انتهاء المسابقة</span>
         <span class="line"></span>
-        <sup style="color:rgb(190, 107, 107);top: -35px;right: 130px;">اختياري*</sup>
+        <sup style="color:rgb(190, 107, 107);top: -35px;right: 170px;">اختياري*</sup>
       </div>
     </div>
     <div class="my-col">
@@ -62,7 +63,7 @@
         <input type="time" id="time" name="time"  value="00:00:00" class="not-required">
         <span class="text">وقت انتهاء المسابقة</span>
         <span class="line"></span>
-        <sup style="color:rgb(190, 107, 107);top: -35px;right: 130px;">اختياري*</sup>
+        <sup style="color:rgb(190, 107, 107);top: -35px;right: 170px;">اختياري*</sup>
       </div>
     </div>
   </div>

@@ -37,7 +37,7 @@
                         <div class="content">
                         <div class="offer-info">
                             <div class="my-col">
-                            <h2>الاسم:</h2>
+                            <h2>اسم العرض:</h2>
                             <p>{{ $offer->name }}</p>
                             </div>
                             <div class="my-col">

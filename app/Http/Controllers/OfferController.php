@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Dotenv\Validator;
 use Error;
+use I18N_Arabic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -124,8 +125,9 @@ class OfferController extends Controller
                 $valueOffer_img_name = time().$key.'.'.'jpg';
          
                 $imgFile = Image::make($image);
-         
-                $imgFile->text( $value['value'] , 700, 450, function($font) { 
+                $arabic =  new I18N_Arabic('Glyphs');
+                $text = $arabic->utf8Glyphs($value['value']);
+                $imgFile->text(  $text, 700, 450, function($font) { 
                     $font->file(base_path('public/Lalezar-Regular.ttf'));
                     $font->size(120);  
                     $font->color('#dbafaf');  
