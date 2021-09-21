@@ -75,6 +75,9 @@ class OfferController extends Controller
         if(isset($request->show_in_home)) {
             $offer->show_in_home = true;
         }
+        if(isset($request->share_link)) {
+            $offer->share_link = 'no';
+        }
         // save image or name
         if(isset($request->company_logo)) {
 
@@ -152,6 +155,7 @@ class OfferController extends Controller
 
     public function show($slug, $reference_code = null)
     {
+        
         $offer = Offer::where('slug', $slug)->first();
         //  اسم الكوكيز
         $created_at = preg_replace('/\s+/', '', $offer->created_at);
@@ -176,16 +180,7 @@ class OfferController extends Controller
 
 
         // تحقق اذا دخل الصفحة من قبل عن طريق الايبي و الكوكيز
-        // 
-      //  Cookie::get($cookie_name) == $ip ||  Session::has($cookie_name)
       if($verification_ip == $ip ){
-            // في حال الايبي لا يساوي الايبي المحفوظ لكن الكوكيز محفوظ
-            // if(Session::has($cookie_name)) {
-            //     $participant = Participant::where([
-            //         'ip' => Session::get($cookie_name),
-            //         'offer_id' => $offer->id,
-            //     ])->first();
-            // } 
         
             $new = false;
             // احضار معلومات المشارك
@@ -231,12 +226,17 @@ class OfferController extends Controller
                 // تسجيل ان هذا الشخص  دخل هذه الصفحة
                 $participant = new Participant();
                 $participant->offer_id = $offer->id;
-                $participant->status = 0;
+                if ($offer->share_link == 'no') {
+                    $participant->status = 1;
+                    $status = 1;
+                } else {
+                    $participant->status = 0;
+                    $status = 0;
+                }
                 $participant->ip = $ip;
                 $participant->reference_code = $reference_code_create;
                 $participant->save();
                 
-                $status = 0;
                 $valueOffer = $offer->valueOffers()->where('will_get', '>', '0')->inRandomOrder()->first();
             } catch (Error $e) {
                 report($e);

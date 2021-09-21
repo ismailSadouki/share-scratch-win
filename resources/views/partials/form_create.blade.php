@@ -77,7 +77,14 @@
       <div class="inputBoxCheck">
         <input type="checkbox" name="show_in_home" id="show_in_home">
         <span class="text" for="show_in_home">عرض في الصفحة الرئيسية:</span>
-        <!-- <span class="line"></span> -->
+      </div>
+    </div>
+  </div>
+  <div class="row100">
+    <div class="my-col">
+      <div class="inputBoxCheck">
+        <input type="checkbox" name="share_link" id="share_link">
+        <span class="text" for="share_link">الربح دون مشاركة الرابط:</span>
       </div>
     </div>
   </div>

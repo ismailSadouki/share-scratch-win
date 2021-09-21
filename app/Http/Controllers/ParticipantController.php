@@ -40,6 +40,7 @@ class ParticipantController extends Controller
 
     public function savePhone(Request $request, $id) 
     {
+
         $participant = Participant::findOrFail($id);
         $phone_exists = Participant::where([
                                                 'offer_id' => $participant->offer_id,
@@ -50,6 +51,14 @@ class ParticipantController extends Controller
         }
         $participant->phone = $request->phone;
         $participant->update();
+
+        // send message to winner in whatssapp
+        // try {
+
+        // } catch (Error $e) {
+        //     report($e);
+        //     return back();
+        // }
 
         return back();
     }
