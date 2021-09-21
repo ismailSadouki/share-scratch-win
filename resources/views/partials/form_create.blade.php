@@ -18,7 +18,7 @@
     <div class="my-col">
       <div class="inputBox">
         <input type="text" name="name" id="name"  required>
-        <span class="text">الاسم العرض</span>
+        <span class="text">اسم العرض</span>
         <span class="line"></span>
       </div>
     </div>
