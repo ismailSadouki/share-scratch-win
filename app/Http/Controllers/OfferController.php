@@ -56,8 +56,7 @@ class OfferController extends Controller
 
             'roles' => 'required',
 
-            'company_name' => 'required_without_all:company_logo',
-            'company_logo' => 'required_without_all:company_name',
+           
 
             'addMoreInputFields.*.value' => 'required_without_all:addMoreInputFields.*.image',
             'addMoreInputFields.*.image' => 'required_without_all:addMoreInputFields.*.value',

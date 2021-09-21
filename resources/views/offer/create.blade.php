@@ -66,14 +66,14 @@
 
 
   {{-- only one field required company_name or company_logo --}}
-    <script>
+    {{-- <script>
       document.addEventListener('DOMContentLoaded', function () {
           const inputs = Array.from(document.querySelectorAll('input[name=company_name], input[name=company_logo]'));
           const inputListener = e => inputs.filter(i => i !== e.target).forEach(i => i.required = !e.target.value.length);
 
           inputs.forEach(i => i.addEventListener('input', inputListener));
       });
-    </script>
+    </script> --}}
 
     <!-- popovers -->
     <script type="text/javascript">
