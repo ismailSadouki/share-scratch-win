@@ -81,7 +81,7 @@
                                     @if($errors->any())
                                         <label style="color:red; background-color: red;color: #fff;">{{$errors->first()}}</label>
                                     @endif
-                                    <input type="text" name="phone" placeholder="+2130984xxxx">
+                                    <input type="text" name="phone" placeholder="130984xxxx">
                                 </div>
                             </div>     
                            
