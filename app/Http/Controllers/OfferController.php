@@ -28,7 +28,7 @@ class OfferController extends Controller
 
     public function myOffers()
     {
-        $offers = Offer::where('user_id', Auth::id())->get();
+        $offers = Offer::where('user_id', Auth::id())->orderBy('created_at', 'DESC')->get();
         return view('offer.myoffers', compact('offers'));
     }
     public function showMyOffer($id)
@@ -109,6 +109,9 @@ class OfferController extends Controller
             }
         }
         $offer->save();
+        
+
+        $arabic =  new I18N_Arabic('Glyphs');
 
         // Add Offers Value
         foreach ($request->addMoreInputFields as $key => $value) {
@@ -127,10 +130,9 @@ class OfferController extends Controller
                 $valueOffer_img_name = time().$key.'.'.'jpg';
          
                 $imgFile = Image::make($image);
-                $arabic =  new I18N_Arabic('Glyphs');
                 $text = $arabic->utf8Glyphs($value['value']);
                 $imgFile->text(  $text, 700, 450, function($font) { 
-                    $font->file(base_path('public/Lalezar-Regular.ttf'));
+                    $font->file(base_path('public/ae_AlHor.ttf'));
                     $font->size(120);  
                     $font->color('#dbafaf');  
                     $font->align('center');  

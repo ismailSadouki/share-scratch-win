@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $offers = Offer::where('show_in_home', 1)->get();
+        $offers = Offer::where('show_in_home', 1)->orderBy('created_at', 'DESC')->get();
         return view('home', compact('offers'));
     }
 }

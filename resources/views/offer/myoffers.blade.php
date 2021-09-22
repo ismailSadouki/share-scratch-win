@@ -19,7 +19,7 @@
                     @endif
                 </div>
                 <div class="content">
-                <p>{{$offer->address}}</p>
+                <p>{{$offer->name}}</p>
                 <div class="card-btns">
                     <a href="{{route('show.myoffers', $offer->id)}}" class="play-btn">عرض<i class="fas fa-play"></i></a>
                 </div>
